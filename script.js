@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 let money = 450;
 
 bg = new Image();
-bg.src = "images/bg.png";
+bg.src = "Images/bg.png";
 var nodes = [];
 nodes.push(new Node(50, canvas.height/2, {x: 0, y: 1}));
 nodes.push(new Node(50, canvas.height*(3/4), {x: 1, y: 0}));
