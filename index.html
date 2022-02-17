@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T.H. Rogers Tower Defense</title>
+    <script src="enemy.js"></script>
+    <script src="node.js"></script>
+    <script src="towers.js"></script>
+    <script src="cards.js"></script>
+</head>
+<body>
+    <style>
+        canvas {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: none;
+        }
+
+        button {
+            position: relative;
+            padding: 10px 40px;
+            margin: 0px 20px 20px 0px;
+            float: left;
+            border-radius: 3px;
+            font-size: 20px;
+            color: #FFF;
+            text-decoration: none;
+            background-color: #2ecc71;
+            border: none;
+            border-bottom: 5px solid #27ae60;
+            text-shadow: 0px -2px #27ae60;
+            -webkit-transition: all 0.1s;
+            transition: all 0.1s;
+        }
+
+        button:hover, button:active {
+            -webkit-transform: translate(0px,5px);
+            -ms-transform: translate(0px,5px);
+            transform: translate(0px,5px);
+            border-bottom: 1px solid #2ecc71;
+        }
+
+        #ui {
+            height: 500px;
+            width: 700px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 3px solid green;
+            background-color: rgb(51, 119, 119);
+        }
+
+        #center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+    <h1>T.H. Rogers Tower Defense</h1>
+    <div id="ui">
+        <div id="center">
+            <button id="play_game" > Play Game </button>
+            <button> Settings </button>
+        </div>
+    </div>
+    <canvas id="canvas" width="1000" height="600"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
