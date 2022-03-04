@@ -1,5 +1,5 @@
 class Card {
-    constructor (name, x, y, price) {
+    constructor (name, img, x, y, price) {
         this.name = name;
         this.x = x;
         this.y = y;
@@ -8,7 +8,7 @@ class Card {
         this.width = 80;
         this.height = 100;
         this.image = new Image();
-        this.image.src = "Images/" + name + ".png";
+        this.image.src = "Images/" + img + ".png";
     }
 
     draw() {

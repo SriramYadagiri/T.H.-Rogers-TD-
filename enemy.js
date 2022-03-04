@@ -6,6 +6,7 @@ class Enemy {
         this.dead = false;
         this.height = 50;
         this.type = type;
+        this.price = type*10;
         this.ind = 1;
         this.image = new Image();
         this.speed = this.type+1;

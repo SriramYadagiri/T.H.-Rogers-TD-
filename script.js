@@ -1,9 +1,9 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-let money = 450;
+let money = 20000;
 
 bg = new Image();
-bg.src = "Images/bg.png";
+bg.src = "Images\\bg.png";
 var nodes = [];
 nodes.push(new Node(50, canvas.height/2, {x: 0, y: 1}));
 nodes.push(new Node(50, canvas.height*(3/4), {x: 1, y: 0}));
@@ -17,7 +17,9 @@ toolBar = {x: canvas.width-300, y: 0, width: 300, height: canvas.height};
 var frame = 0;
 
 var cards = [];
-cards.push(new Card("student", 850, 50, Student.price));
+cards.push(new Card("student", "student", 850, 50, Student.price));
+cards.push(new Card("coach", "Munoz/Pose1", 850, 175, Coach.price));
+cards.push(new Card("farm", "RiceFarm/type1", 850, 300, Farm.price));
 
 document.getElementById("play_game").onclick = () => {
     document.getElementById("ui").style.display = "none";
@@ -29,7 +31,6 @@ document.getElementById("play_game").onclick = () => {
 
 var selectedTower = null;
 canvas.addEventListener("click", function(mouse) {
-    console.log(money);
     if(mouseOn(mouse, toolBar)) {
         cards.forEach(card => {
             if(mouseOn(mouse, card)) {
@@ -44,6 +45,16 @@ canvas.addEventListener("click", function(mouse) {
                 if (money - Student.price > 0) {
                     spawnStudent(mouse.offsetX, mouse.offsetY);
                     money -= Student.price;
+                }
+            } else if (selectedTower == "farm") {
+                if (money - Farm.price > 0) {
+                    spawnFarm(mouse.offsetX, mouse.offsetY);
+                    money -= Farm.price;
+                }
+            } else if (selectedTower == "coach") {
+                if (money - Coach.price > 0) {
+                    spawnCoach(mouse.offsetX, mouse.offsetY);
+                    money -= Coach.price;
                 }
             }
         }
@@ -60,7 +71,10 @@ function draw() {
         card.draw();
     })
     enemies.forEach((enemy, ind) => {
-        if(enemy.position.x < 0 || enemy.hp <= 0) enemies.splice(ind, 1);
+        if(enemy.position.x < 0 || enemy.hp <= 0) {
+            enemies.splice(ind, 1);
+            money+=enemy.price;
+        }
         nodes.forEach((node) => {
             if (enemy.on(node)) {
                 enemy.velocity = node.vel;
@@ -73,11 +87,21 @@ function draw() {
         student.update();
         enemies.forEach(enemy => {
             if(frame%10 == 0 && student.canShoot && circleRect(student.position.x+student.width/2, student.position.y+student.height/2, student.range, enemy.position.x, enemy.position.y, enemy.width, enemy.height)) {
-                student.shoot(enemy.position.x+enemy.width/2+enemy.velocity.x*2, enemy.position.y+enemy.height/2+enemy.velocity.y*2);
+                student.shoot(enemy.position.x, enemy.position.y);
             }
         });
         student.draw();
     })
+    coaches.forEach(coach => {
+        enemies.forEach(enemy => {
+            if(frame%10 == 0 && circleRect(coach.position.x+coach.width/2, coach.position.y+coach.height/2, coach.range, enemy.position.x, enemy.position.y, enemy.width, enemy.height)) {
+                if (!coach.attacking) coach.animate();
+                enemy.hp -= coach.damage;
+            }
+        });
+        coach.draw();
+    })
+    farms.forEach(farm => farm.draw());
     // nodes.forEach((node) => {
     //     node.draw();
     // });
